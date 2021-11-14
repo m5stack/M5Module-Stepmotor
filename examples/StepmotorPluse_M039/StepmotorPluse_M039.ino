@@ -1,3 +1,17 @@
+/*
+*******************************************************************************
+* Copyright (c) 2021 by M5Stack
+*                  Equipped with M5Core sample source code
+*                          配套  M5Core 示例源代码
+* Visit the website for more information：https://docs.m5stack.com/en/module/stepmotor_driver
+* 获取更多资料请访问：https://docs.m5stack.com/zh_CN/module/stepmotor_driver
+*
+* describe: Stepmotor With Pluse.
+* date：2021/11/14
+*******************************************************************************
+  StepMotor Driver Module TEST Example,Directly drive the motor using pulse signals.
+  步进电机模块测试示例,使用脉冲信号直接驱动电机
+*/
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "M5Stack.h"
