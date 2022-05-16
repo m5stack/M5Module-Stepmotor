@@ -8,7 +8,7 @@ This module integrated TCA9554 IO expansion chip provides 4 sets of input signal
 
 ## Related Link
 
-[Docment](https://docs.m5stack.com/en/module/stepmotor_driver)
+[Document](https://docs.m5stack.com/en/module/stepmotor_driver)
 
 ## License
 
