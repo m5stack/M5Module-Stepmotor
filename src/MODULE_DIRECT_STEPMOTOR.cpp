@@ -1,6 +1,5 @@
 #include "MODULE_DIRECT_STEPMOTOR.h"
 
-
 uint8_t DIRECT_STEPMOTOR::writeByte(uint8_t addr, uint8_t reg, uint8_t data) {
     _wire->beginTransmission(addr);
     _wire->write(reg);
@@ -13,14 +12,14 @@ uint8_t DIRECT_STEPMOTOR::readByte(uint8_t addr, uint8_t reg, uint8_t* data) {
     _wire->beginTransmission(addr);
     _wire->write(reg);
     result = _wire->endTransmission();
-    if (result != I2C_ERROR_OK) {
+    if (result != 0) {
         return result;
     }
     if (_wire->requestFrom((int)addr, 1) == 0) {
-        return I2C_ERROR_BUS;
+        return 4;
     }
     *data = _wire->read();
-    return I2C_ERROR_OK;
+    return 0;
 }
 
 bool DIRECT_STEPMOTOR::init(TwoWire& wire_in, uint8_t addr) {
@@ -28,10 +27,11 @@ bool DIRECT_STEPMOTOR::init(TwoWire& wire_in, uint8_t addr) {
     _addr = addr;
 
     // IO 0 ~ 3 input, 4 ~ 7 out_put;
-    return writeByte(_addr, 0x03, 0x0f) == I2C_ERROR_OK;
+    return writeByte(_addr, 0x03, 0x0f) == 0;
 }
 
-void DIRECT_STEPMOTOR::setMicrostepResolution(MicrostepResolution_t micro_step) {
+void DIRECT_STEPMOTOR::setMicrostepResolution(
+    MicrostepResolution_t micro_step) {
     uint8_t reg_data = 0x00;
     readByte(_addr, 0x01, &reg_data);
     reg_data &= 0x1f;
@@ -51,8 +51,8 @@ void DIRECT_STEPMOTOR::enableMotor(uint8_t en) {
 
 void DIRECT_STEPMOTOR::getExtIOStatus(uint8_t* status) {
     uint8_t io_status = 0x00;
-    if (readByte(_addr, 0x00, &io_status) != I2C_ERROR_OK) {
-        return ;
+    if (readByte(_addr, 0x00, &io_status) != 0) {
+        return;
     }
 
     for (uint8_t i = 0; i < 4; i++) {
@@ -66,8 +66,8 @@ void DIRECT_STEPMOTOR::getExtIOStatus(uint8_t* status) {
 
 void DIRECT_STEPMOTOR::getFaultStatus(uint8_t* status) {
     uint8_t fault_status = 0x00;
-    if (readByte(_addr, 0x04, &fault_status) != I2C_ERROR_OK) {
-        return ;
+    if (readByte(_addr, 0x04, &fault_status) != 0) {
+        return;
     }
 
     for (uint8_t i = 0; i < 3; i++) {
@@ -83,10 +83,9 @@ void DIRECT_STEPMOTOR::resetMotor(uint8_t resmtr, uint8_t en) {
     uint8_t reg_data = 0x00;
     readByte(_addr, 0x05, &reg_data);
     reg_data &= 0x07;
-    if(en)
+    if (en)
         reg_data &= ~(0x01 << resmtr);
     else
         reg_data |= (0x01 << resmtr);
     writeByte(_addr, 0x05, reg_data);
 }
-
