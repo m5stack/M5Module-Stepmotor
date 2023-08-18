@@ -23,7 +23,7 @@ signals. 步进电机模块测试示例,使用脉冲信号直接驱动电机
 String inputString  = "";
 bool stringComplete = false;
 
-static DIRECT_STEPMOTOR driver;
+static Module_Stepmotor driver;
 
 void setup() {
     M5.begin(true, false, true, false);

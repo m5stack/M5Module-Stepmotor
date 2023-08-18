@@ -1,9 +1,9 @@
-#ifndef _MODULE_DIRECT_STEPMOTOR_H_
-#define _MODULE_DIRECT_STEPMOTOR_H_
+#ifndef _MODULE_STEPMOTOR_H_
+#define _MODULE_STEPMOTOR_H_
 
 #include "Wire.h"
 
-class DIRECT_STEPMOTOR {
+class Module_Stepmotor {
    private:
     uint8_t writeByte(uint8_t addr, uint8_t reg, uint8_t data);
 

@@ -1,13 +1,13 @@
-#include "MODULE_DIRECT_STEPMOTOR.h"
+#include "Module_Stepmotor.h"
 
-uint8_t DIRECT_STEPMOTOR::writeByte(uint8_t addr, uint8_t reg, uint8_t data) {
+uint8_t Module_Stepmotor::writeByte(uint8_t addr, uint8_t reg, uint8_t data) {
     _wire->beginTransmission(addr);
     _wire->write(reg);
     _wire->write(data);
     return _wire->endTransmission();
 }
 
-uint8_t DIRECT_STEPMOTOR::readByte(uint8_t addr, uint8_t reg, uint8_t* data) {
+uint8_t Module_Stepmotor::readByte(uint8_t addr, uint8_t reg, uint8_t* data) {
     uint8_t result;
     _wire->beginTransmission(addr);
     _wire->write(reg);
@@ -22,7 +22,7 @@ uint8_t DIRECT_STEPMOTOR::readByte(uint8_t addr, uint8_t reg, uint8_t* data) {
     return 0;
 }
 
-bool DIRECT_STEPMOTOR::init(TwoWire& wire_in, uint8_t addr) {
+bool Module_Stepmotor::init(TwoWire& wire_in, uint8_t addr) {
     _wire = &wire_in;
     _addr = addr;
 
@@ -30,7 +30,7 @@ bool DIRECT_STEPMOTOR::init(TwoWire& wire_in, uint8_t addr) {
     return writeByte(_addr, 0x03, 0x0f) == 0;
 }
 
-void DIRECT_STEPMOTOR::setMicrostepResolution(
+void Module_Stepmotor::setMicrostepResolution(
     MicrostepResolution_t micro_step) {
     uint8_t reg_data = 0x00;
     readByte(_addr, 0x01, &reg_data);
@@ -39,7 +39,7 @@ void DIRECT_STEPMOTOR::setMicrostepResolution(
     writeByte(_addr, 0x01, reg_data);
 }
 
-void DIRECT_STEPMOTOR::enableMotor(uint8_t en) {
+void Module_Stepmotor::enableMotor(uint8_t en) {
     uint8_t reg_data = 0x00;
     readByte(_addr, 0x01, &reg_data);
     reg_data &= 0xef;
@@ -49,7 +49,7 @@ void DIRECT_STEPMOTOR::enableMotor(uint8_t en) {
     writeByte(_addr, 0x01, reg_data);
 }
 
-void DIRECT_STEPMOTOR::getExtIOStatus(uint8_t* status) {
+void Module_Stepmotor::getExtIOStatus(uint8_t* status) {
     uint8_t io_status = 0x00;
     if (readByte(_addr, 0x00, &io_status) != 0) {
         return;
@@ -64,7 +64,7 @@ void DIRECT_STEPMOTOR::getExtIOStatus(uint8_t* status) {
     }
 }
 
-void DIRECT_STEPMOTOR::getFaultStatus(uint8_t* status) {
+void Module_Stepmotor::getFaultStatus(uint8_t* status) {
     uint8_t fault_status = 0x00;
     if (readByte(_addr, 0x04, &fault_status) != 0) {
         return;
@@ -79,7 +79,7 @@ void DIRECT_STEPMOTOR::getFaultStatus(uint8_t* status) {
     }
 }
 
-void DIRECT_STEPMOTOR::resetMotor(uint8_t resmtr, uint8_t en) {
+void Module_Stepmotor::resetMotor(uint8_t resmtr, uint8_t en) {
     uint8_t reg_data = 0x00;
     readByte(_addr, 0x05, &reg_data);
     reg_data &= 0x07;
