@@ -1,6 +1,6 @@
 {
-  "name": "MODULE_DIRECT_STEPMOTOR",
-  "description": "M5Stack MODULE_DIRECT_STEPMOTOR",
+  "name": "Module_Stepmotor",
+  "description": "M5Stack MODULE DIRECT STEPMOTOR M039",
   "keywords": "M5Stack STEPMOTOR",
   "authors": {
     "name": "Sean, M5Stack",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/m5stack/MODULE_DIRECT_STEPMOTOR.git"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "frameworks": "arduino",
   "platforms": "espressif32"
 }
