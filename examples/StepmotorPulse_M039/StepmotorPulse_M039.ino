@@ -75,10 +75,9 @@ void setup() {
 }
 
 void loop() {
-    static uint8_t step_dir  = 1;
-    static uint8_t reset_mtr = 0;
-    static DIRECT_STEPMOTOR::MicrostepResolution_t micro_res =
-        DIRECT_STEPMOTOR::kMicrosteps16;
+    static uint8_t step_dir                                  = 1;
+    static uint8_t reset_mtr                                 = 0;
+    static Module_Stepmotor::MicrostepResolution_t micro_res = Module_Stepmotor::kMicrosteps16;
     Serial1.print("Y");
     delay(25);
     M5.update();
